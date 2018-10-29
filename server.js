@@ -1,27 +1,17 @@
 const budo = require('budo');
 const babelify = require('babelify');
-
-const twitterPrefixRegex = /^\/twitter/;
-
-const proxyToTwitter = (req, res, next) => {
-  // call twitter API from here
-}
+const { sendJSON } = require('./utils');
 
 budo(
-  './index.js',
+  './app/index.js',
   {
     live: true,
-    open: true,
+    // open: true,
     stream: process.stdout,
     port: 8000,
+    css: 'dist/main.css',
     middleware: [
-      (req, res, next) => {
-        if(req.url.match(twitterPrefixRegex)){
-          // proxy to twitter
-          console.log(req.url);
-        }
-        next();
-      }
+      require('./twitter-proxy')
     ],
     browserify: {
       transform: babelify   // use ES6

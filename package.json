@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "less-watch-compiler styles dist main.less --source-map",
+    "css": "lessc styles/main.less dist/main.css --source-map",
     "start": "node server.js"
   },
   "repository": {
@@ -20,13 +22,22 @@
   "dependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babelify": "^10.0.0",
     "budo": "^11.5.0",
     "crypto-js": "^3.1.9-1",
+    "less": "^3.8.1",
+    "normalize.css": "^8.0.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5",
+    "webfontloader": "^1.6.28",
     "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "less-watch-compiler": "^1.12.1"
   }
 }

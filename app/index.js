@@ -1,49 +1,20 @@
-import React, { Component } from 'react';
-import TwitterClient from './lib/twitter-client';
-import { appPasswordKey } from './lib/constants';
-import PasswordForm from './components/PasswordForm';
+import '@babel/polyfill';
+import WebFont from 'webfontloader';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-export default class App extends Component {
-  componentWillMount(){
-    this.onSubmitPasswordForm = this.onSubmitPasswordForm.bind(this);
-    const hasCredentials = !!this.getAppPassword();
-    this.setState({
-      hasCredentials
-    });
-    if(hasCredentials){
-      this.initTwitterClient();
-    }
+WebFont.load({
+  google: {
+    families: ['Roboto:400,700']
   }
-  getAppPassword(){
-    return !!window.localStorage.getItem(appPasswordKey);
-  }
-  initTwitterClient(){
-    try {
-      this.twitterClient = new TwitterClient();
-      this.twitterClient.getAccessToken().then(console.log);
-      console.log(this.twitterClient);
-    }
-    catch(err) {
-      console.error(err);
-      this.setState({
-        hasCredentials: false
-      });
-    }
-  }
-  onSubmitPasswordForm(){
-    this.initTwitterClient();
-    this.forceUpdate();
-  }
-  render(){
-    const { hasCredentials } = this.state;
-    if(!hasCredentials){
-      return (
-        <PasswordForm
-          onSubmit={this.onSubmitPasswordForm}/>
-      );
-    }
-    return (
-      <h1>Hey hey</h1>
-    );
-  }
-}
+});
+
+const container = document.createElement('div');
+container.setAttribute('id', 'wrapper');
+document.body.appendChild(container);
+
+ReactDOM.render(
+  <App />,
+  container
+);

@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { appPasswordKey } from '../lib/constants';
+import { verifyPassword } from '../lib/api';
 
 export default class PasswordForm extends Component {
   componentWillMount(){
     this.onSubmit = this.onSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  onSubmit(e){
-    const { onSubmit } = this.props;
+  async onSubmit(e){
+    const { submitHook } = this.props;
     e.preventDefault();
     window.localStorage.setItem(appPasswordKey, this.state.password);
-    if(typeof onSubmit === 'function'){
-      onSubmit();
+    if(typeof submitHook === 'function'){
+      submitHook(this.state.password);
     }
   }
   handleChange(e){
@@ -27,6 +28,7 @@ export default class PasswordForm extends Component {
         onSubmit={this.onSubmit}>
         <h3>Enter your passcode to start the app</h3>
         <input onChange={this.handleChange} autoComplete="new-password" type="password" className="password-input" />
+        <button type="submit">Go</button>
       </form>
     )
   }
