@@ -4,6 +4,7 @@ import PasswordForm from './components/PasswordForm';
 import SearchForm from './components/SearchForm';
 import Visualizer from './components/Visualizer';
 import { verifyPassword, searchTweets } from './lib/api';
+import processData from './lib/process-data';
 
 export default class App extends Component {
   componentWillMount(){
@@ -42,14 +43,19 @@ export default class App extends Component {
   async loadTweets(query){
     try {
       const response = await searchTweets(query);
+      const tweets = processData(response.statuses);
       this.setState({
-        tweets: response.statuses
+        tweets
       });
     }
     catch(err){
-      err = await err.json();
+      console.error(err);
+      if(typeof err.json === 'function'){
+        err = await err.json();
+        err = err.err;
+      }
       this.setState({
-        error: err.err
+        error: err
       });
     }
   }

@@ -34,6 +34,7 @@
     "react-dom": "^16.6.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
+    "stopwords": "0.0.9",
     "webfontloader": "^1.6.28",
     "whatwg-fetch": "^3.0.0"
   },
