@@ -4,7 +4,10 @@ import { appPasswordKey } from './constants';
 const addURLParams = (url, params) => {
   var qs = '';
   if(params){
-    let s = new URLSearchParams(params);
+    let s = new URLSearchParams();
+    Object.keys(params).forEach(
+      k => s.append(k, params[k])
+    )
     qs = `?${s.toString()}`;
   }
   return `${url}${qs}`;

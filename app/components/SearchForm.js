@@ -29,11 +29,11 @@ export default class SearchForm extends Component {
     });
   }
   render(){
+    const { loading, tweets, query } = this.props;
     return (
       <form
         className="search-form"
         onSubmit={this.onSubmit}>
-        <h3>Search</h3>
         <div className="form-row">
           <input
             onChange={this.handleChange}
@@ -42,6 +42,14 @@ export default class SearchForm extends Component {
             className="search-input" />
           <button type="submit">Go</button>
         </div>
+        <p>
+          {
+            loading
+            ? <span>Loading...</span>
+            : <span><strong>{tweets.length}</strong> recent tweets found for "{query}"</span>
+          }
+          &nbsp;
+        </p>
       </form>
     )
   }

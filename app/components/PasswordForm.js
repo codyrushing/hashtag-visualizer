@@ -27,8 +27,10 @@ export default class PasswordForm extends Component {
         className="password-form"
         onSubmit={this.onSubmit}>
         <h3>Enter your passcode to start the app</h3>
-        <input onChange={this.handleChange} autoComplete="new-password" type="password" className="password-input" />
-        <button type="submit">Go</button>
+        <div className="form-row">
+          <input onChange={this.handleChange} autoComplete="new-password" type="password" className="password-input" />
+          <button type="submit">Go</button>
+        </div>
       </form>
     )
   }

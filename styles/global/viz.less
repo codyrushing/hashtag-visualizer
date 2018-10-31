@@ -1,0 +1,20 @@
+.viz-section {
+  p {
+    margin: 0.5rem 0;
+  }
+  .viz-container {
+    svg {
+      .arc-group {
+        cursor: pointer;
+      }
+      path.chord {
+        fill-opacity: 0.8;
+        // transition: all 0.1s ease-in-out;
+        &.fade {
+          fill-opacity: 0.1 !important;
+          stroke-opacity: 0 !important;
+        }
+      }
+    }
+  }
+}

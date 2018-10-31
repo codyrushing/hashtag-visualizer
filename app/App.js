@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { appPasswordKey } from './lib/constants';
 import PasswordForm from './components/PasswordForm';
 import SearchForm from './components/SearchForm';
-import Visualizer from './components/Visualizer';
+import VizContainer from './components/VizContainer';
 import { verifyPassword, searchTweets } from './lib/api';
 import processData from './lib/process-data';
 
@@ -11,7 +11,9 @@ export default class App extends Component {
     this.checkForValidCredentials = this.checkForValidCredentials.bind(this);
     this.loadTweets = this.loadTweets.bind(this);
     this.setState({
-      hasValidCredentials: false
+      hasValidCredentials: false,
+      query: null,
+      tweets: []
     });
     this.checkForValidCredentials();
   }
@@ -42,10 +44,15 @@ export default class App extends Component {
   }
   async loadTweets(query){
     try {
-      const response = await searchTweets(query);
-      const tweets = processData(response.statuses);
       this.setState({
-        tweets
+        loading: true
+      });
+      const response = await searchTweets(query);
+      // const tweets = processData(response.statuses);
+      this.setState({
+        query,
+        tweets: response.statuses,
+        loading: false
       });
     }
     catch(err){
@@ -55,7 +62,8 @@ export default class App extends Component {
         err = err.err;
       }
       this.setState({
-        error: err
+        error: err,
+        loading: false
       });
     }
   }
@@ -83,11 +91,11 @@ export default class App extends Component {
     return this.renderAuthorized();
   }
   renderAuthorized(){
-    const { tweets=[] } = this.state;
+    const { loading } = this.state;
     return (
-      <div className="authorized">
-        <SearchForm submitHook={this.loadTweets} />
-        <Visualizer data={tweets} />
+      <div className={`app authorized ${loading ? 'loading' : ''}`}>
+        <SearchForm submitHook={this.loadTweets} {...this.state} />
+        <VizContainer {...this.state} />
       </div>
     );
   }

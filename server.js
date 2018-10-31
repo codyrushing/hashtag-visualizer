@@ -6,7 +6,8 @@ budo(
   './app/index.js',
   {
     live: true,
-    // open: true,
+    open: true,
+    title: 'Twitter text visualizer',
     stream: process.stdout,
     port: 8000,
     css: 'dist/main.css',

@@ -1,2 +1,24 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  padding: 1rem;
+}
+
+.app {
+  display: flex;
+  .search-form {
+    flex: 1;
+  }
+  .viz-section {
+    flex-grow: 2;
+  }
+}
+
+@media (max-width: 1024px) {
+  .app {
+    flex-direction: column;
+  }
+}
+
 @import 'forms.less';
 @import 'ui.less';
+@import 'viz.less';

@@ -12,6 +12,7 @@ const getCredentials = function(encryptionKey, forceValidate){
   if(!encryptionKey){
     throw new Error('Encryption key not found');
   }
+  encryptionKey = encryptionKey.toLowerCase();
   const creds = {
     APIKey: CryptoJS.AES.decrypt(key, encryptionKey).toString(CryptoJS.enc.Utf8),
     APISecret: CryptoJS.AES.decrypt(secret, encryptionKey).toString(CryptoJS.enc.Utf8)
